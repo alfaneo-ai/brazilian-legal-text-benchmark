@@ -9,7 +9,7 @@ def create_logger():
     return logging.getLogger()
 
 
-class WorkProgress:
+class AppLogger:
     def __init__(self):
         self.logger = create_logger()
         self.total_steps = 0
