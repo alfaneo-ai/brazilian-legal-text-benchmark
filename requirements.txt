@@ -1,0 +1,21 @@
+--find-links https://download.pytorch.org/whl/torch_stable.html
+python-dotenv~=0.15.0
+python-slugify~=5.0.2
+pandas~=1.2.4
+numpy~=1.19.2
+cupy-cuda111
+spacy[transformers,cuda111]~=3.0.6
+pyserini~=0.13.0
+annoy~=1.17.0
+tensorflow==2.4.1
+tensorflow-hub==0.12.0
+tensorflow-text==2.4.3
+torch==1.8.1+cu111
+sentence-transformers==1.2.0
+faiss-cpu
+openpyxl==3.0.7
+trectools==0.0.45
+gensim==3.8.3
+scikit-learn~=0.24.2
+rank-bm25==0.2.1
+nltk==3.6.2
