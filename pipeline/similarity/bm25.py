@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 from nltk.stem import RSLPStemmer
 from nltk.tokenize import word_tokenize
-from rank_bm25 import BM25L
+from rank_bm25 import BM25L, BM25Okapi, BM25Plus
 
 from .base import Similarity
 
@@ -25,7 +25,7 @@ class Bm25Similarity(Similarity):
     def __create_index(self, dataset: pd.DataFrame):
         text_corpus = dataset['doc_text'].tolist()
         tokenized_corpus = [self.__clean(text) for text in text_corpus]
-        self.index = BM25L(tokenized_corpus)
+        self.index = BM25Okapi(tokenized_corpus)
 
     def __add_score_column(self, dataset: pd.DataFrame):
         query_text = dataset['query_text'].iloc[0]
