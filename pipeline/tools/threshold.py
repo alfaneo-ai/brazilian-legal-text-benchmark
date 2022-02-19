@@ -6,7 +6,7 @@ from .metrics import Metrics
 
 class ThresholdTester:
     def __init__(self):
-        self.thresholds = np.arange(0.1, 0.9, 0.1)
+        self.thresholds = np.arange(0.1, 1.0, 0.1)
         self.metrics = Metrics()
 
     def test(self, dataset: pd.DataFrame):
@@ -17,4 +17,4 @@ class ThresholdTester:
 
     @staticmethod
     def __is_relevant(score, threshold):
-        return 1 if score >= threshold else 0
+        return 1.0 if score >= threshold else 0.0

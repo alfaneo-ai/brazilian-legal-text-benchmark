@@ -4,7 +4,7 @@ from sklearn.metrics import f1_score, precision_score, recall_score
 
 class Metrics:
     def __init__(self):
-        self.results = pd.DataFrame({'assunto': [], 'acordao_id': [], 'f1': [], 'precision': [], 'recall': []})
+        self.results = pd.DataFrame({'case': [], 'f1': [], 'precision': [], 'recall': []})
 
     def analyse(self, dataset: pd.DataFrame, case):
         y_true = dataset['relevant'].tolist()
