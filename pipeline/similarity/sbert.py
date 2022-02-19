@@ -8,7 +8,13 @@ from .base import Similarity
 
 class SentenceBertSimilarity(Similarity):
     def __init__(self):
-        self.model = SentenceTransformer('ricardo-filho/sbertimbau-base-nli-sts')
+        # self.model = SentenceTransformer('distiluse-base-multilingual-cased-v1')
+        # self.model = SentenceTransformer('paraphrase-multilingual-mpnet-base-v2')
+        # self.model = SentenceTransformer('paraphrase-multilingual-MiniLM-L12-v2')
+        # self.model = SentenceTransformer('ricardo-filho/bert-portuguese-cased-nli-assin-assin-2')
+        # self.model = SentenceTransformer('ricardo-filho/sbertimbau-base-nli-sts')
+        self.model = SentenceTransformer('ricardo-filho/sbertimbau-large-nli-sts')
+
         self.model.max_seq_length = 200
 
     def score(self, dataset: pd.DataFrame) -> pd.DataFrame:

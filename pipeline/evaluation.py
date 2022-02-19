@@ -53,3 +53,4 @@ class EvaluationCommand:
         self.logger.show(f'Average tokens: {average_tokens}')
         self.logger.show(f'Truncated docs: {truncated}')
         self.logger.show(f'Total similarity compares: {len(self.merger.dataset)}')
+        self.logger.finish()

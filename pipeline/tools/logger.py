@@ -1,4 +1,5 @@
 import logging
+import datetime
 
 
 def create_logger():
@@ -14,23 +15,21 @@ class AppLogger:
         self.logger = create_logger()
         self.total_steps = 0
         self.current_step = 0
+        self.started = None
 
     def show(self, message):
         self.logger.info(message)
 
-    def show_metrics(self, metrics):
-        self.logger.info('')
-        self.logger.info('-----------------------------------------')
-        self.logger.info(f'F1: {metrics[0]}')
-        self.logger.info(f'Precision: {metrics[1]}')
-        self.logger.info(f'Recall: {metrics[2]}')
-        self.logger.info('-----------------------------------------')
-        self.logger.info('')
-
     def start(self, steps):
         self.total_steps = steps
         self.current_step = 0
+        self.started = datetime.datetime.now().replace(microsecond=0)
 
     def step(self, message):
         self.current_step += 1
         self.logger.info(f'{self.current_step} de {self.total_steps} - {message}')
+
+    def finish(self):
+        finish = datetime.datetime.now().replace(microsecond=0)
+        duration = finish - self.started
+        self.logger.info(f'Duration {duration}')
