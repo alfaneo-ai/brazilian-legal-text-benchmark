@@ -13,9 +13,9 @@ class SentenceBertSimilarity(Similarity):
         # self.model = SentenceTransformer('paraphrase-multilingual-MiniLM-L12-v2')
         # self.model = SentenceTransformer('ricardo-filho/bert-portuguese-cased-nli-assin-assin-2')
         # self.model = SentenceTransformer('ricardo-filho/sbertimbau-base-nli-sts')
-        self.model = SentenceTransformer('ricardo-filho/sbertimbau-large-nli-sts')
-
-        self.model.max_seq_length = 200
+        # self.model = SentenceTransformer('ricardo-filho/sbertimbau-large-nli-sts')
+        self.model = SentenceTransformer('/home/cviegas/Workspace/mestrado/brazilian-legal-text-bert/output/simcse_ult')
+        self.model.max_seq_length = 384
 
     def score(self, dataset: pd.DataFrame) -> pd.DataFrame:
         documents = dataset['doc_text'].tolist()

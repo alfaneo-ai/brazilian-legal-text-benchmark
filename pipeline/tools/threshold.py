@@ -6,7 +6,7 @@ from .metrics import Metrics
 
 class ThresholdTester:
     def __init__(self):
-        self.thresholds = np.arange(0.1, 1.0, 0.1)
+        self.thresholds = np.arange(0.01, 1.00, 0.01)
         self.metrics = Metrics()
 
     def test(self, dataset: pd.DataFrame):
