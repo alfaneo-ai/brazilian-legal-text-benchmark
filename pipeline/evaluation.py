@@ -23,6 +23,7 @@ class EvaluationCommand:
         for filepath in filepaths:
             self.__measure_similarity(filepath)
         self.__show_results()
+        self.__show_statistics()
         self.logger.show('>>>>>>>>>>>> TÉRMINO')
 
     def __find_query_files(self):
@@ -39,10 +40,16 @@ class EvaluationCommand:
         self.merger.merge(query_dataset)
 
     def __show_results(self):
+        best_case = self.threshold.test(self.merger.dataset)
+        self.logger.show('>>>>>>>>>>>>>>>>>>>')
+        self.logger.show(f'Threshold: {best_case["case"]}')
+        self.logger.show(f'F1: {best_case["f1"]}')
+        self.logger.show(f'Precision: {best_case["precision"]}')
+        self.logger.show(f'Recall: {best_case["recall"]}')
+
+    def __show_statistics(self):
         average_tokens, truncated = self.statistic.calculate(self.merger.dataset)
+        self.logger.show('>>>>>>>>>>>>>>>>>>>')
         self.logger.show(f'Average tokens: {average_tokens}')
         self.logger.show(f'Truncated docs: {truncated}')
         self.logger.show(f'Total similarity compares: {len(self.merger.dataset)}')
-
-
-
