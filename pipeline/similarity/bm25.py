@@ -23,7 +23,7 @@ class Bm25Similarity(Similarity):
         return dataset
 
     def __create_index(self, dataset: pd.DataFrame):
-        text_corpus = dataset['doc_text'].tolist()
+        text_corpus = dataset['ementa2'].tolist()
         tokenized_corpus = [self.__clean(text) for text in text_corpus]
         self.index = BM25Okapi(tokenized_corpus)
 

@@ -4,8 +4,8 @@ import re
 
 class Preprocessor:
     def clear(self, dataset: pd.DataFrame):
-        dataset['query_text'] = dataset.apply(lambda row: self.__clear_text(row['query_text']), axis=1)
-        dataset['doc_text'] = dataset.apply(lambda row: self.__clear_text(row['doc_text']), axis=1)
+        dataset['ementa1'] = dataset.apply(lambda row: self.__clear_text(row['ementa1']), axis=1)
+        dataset['ementa2'] = dataset.apply(lambda row: self.__clear_text(row['ementa2']), axis=1)
         return dataset
 
     def __clear_text(self, text: str) -> str:

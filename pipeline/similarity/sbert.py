@@ -8,22 +8,14 @@ from .base import Similarity
 
 class SentenceBertSimilarity(Similarity):
     def __init__(self):
-        # self.model = SentenceTransformer('distiluse-base-multilingual-cased-v1')
-        # self.model = SentenceTransformer('paraphrase-multilingual-mpnet-base-v2')
-        # self.model = SentenceTransformer('paraphrase-multilingual-MiniLM-L12-v2')
-        # self.model = SentenceTransformer('ricardo-filho/bert-portuguese-cased-nli-assin-assin-2')
-        # self.model = SentenceTransformer('ricardo-filho/sbertimbau-base-nli-sts')
-        # self.model = SentenceTransformer('ricardo-filho/sbertimbau-large-nli-sts')
-        self.model = SentenceTransformer('/home/cviegas/Workspace/mestrado/brazilian-legal-text-bert/output/simcse_ult')
-        self.model.max_seq_length = 384
+        self.model = SentenceTransformer('/home/cviegas/Workspace/mestrado/brazilian-legal-text-bert/output/finetunning-2022-02-21_08-30-29')
+        self.model.max_seq_length = 256
 
     def score(self, dataset: pd.DataFrame) -> pd.DataFrame:
-        documents = dataset['doc_text'].tolist()
-        query = dataset['query_text'].iloc[0]
-        size = len(documents)
+        documents = dataset['ementa1'].tolist()
+        queries = dataset['ementa2'].tolist()
 
-        query_embed = self.model.encode(query)
-        queries_embed = [query_embed] * size
+        queries_embed = self.model.encode(queries)
         queries_embed = np.array(queries_embed)
 
         documents_embed = self.model.encode(documents)
