@@ -3,7 +3,7 @@ import pandas as pd
 import tensorflow as tf
 import tensorflow_text as text
 import tensorflow_hub as hub
-from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.metrics.pairwise import paired_cosine_distances
 
 from .base import Similarity
 
@@ -21,12 +21,17 @@ class UniversalSentenceEncoderSimilarity(Similarity):
         self.model = hub.load('https://tfhub.dev/google/universal-sentence-encoder-multilingual/3')
 
     def score(self, dataset: pd.DataFrame) -> pd.DataFrame:
-        queries = dataset['ementa1'].tolist()
-        documents = dataset['ementa2'].tolist()
-        queries_embed = self.__embeddings(queries)
-        documents_embed = self.__embeddings(documents)
-        diff = cosine_similarity(queries_embed, documents_embed)
-        dataset['score'] = diff[0]
+        sentences1 = dataset['ementa1'].tolist()
+        sentences2 = dataset['ementa2'].tolist()
+        sentences = list(set(sentences1 + sentences2))
+
+        embeddings = self.__embeddings(sentences)
+        emb_dict = {sent: emb for sent, emb in zip(sentences, embeddings)}
+        embeddings1 = [emb_dict[sent] for sent in sentences1]
+        embeddings2 = [emb_dict[sent] for sent in sentences2]
+
+        cosine_scores = 1 - paired_cosine_distances(embeddings1, embeddings2)
+        dataset['score'] = cosine_scores
         return dataset
 
     def __embeddings(self, documents):
