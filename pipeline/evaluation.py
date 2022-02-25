@@ -39,7 +39,7 @@ class EvaluationCommand:
         self.logger.show(f'F1: {best_case["f1"]}')
         self.logger.show(f'Precision: {best_case["precision"]}')
         self.logger.show(f'Recall: {best_case["recall"]}')
-        self.logger.show(f'Threshold: {best_case["case"]}')
+        self.logger.show(f'Threshold: {best_case["threshold"]}')
 
     def __show_statistics(self, query_dataset):
         average_tokens, truncated = self.statistic.calculate(query_dataset)

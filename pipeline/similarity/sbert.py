@@ -8,7 +8,7 @@ from .base import Similarity
 
 class SentenceBertSimilarity(Similarity):
     def __init__(self):
-        self.model = SentenceTransformer('/home/cviegas/Workspace/mestrado/brazilian-legal-text-bert/output/finetunning-2022-02-21_08-30-29')
+        self.model = SentenceTransformer('/home/cviegas/Workspace/mestrado/brazilian-legal-text-bert/output/finetunning-2022-02-23_18-15-33')
         self.model.max_seq_length = 256
 
     def score(self, dataset: pd.DataFrame) -> pd.DataFrame:
