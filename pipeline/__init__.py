@@ -1,5 +1,6 @@
 import argparse
 
+from .data import DataAnalyserCommand
 from .evaluation import EvaluationCommand
 
 
@@ -11,8 +12,11 @@ def parse_commands():
     return args
 
 
-def run_command():
+def run_benchmark():
     args = parse_commands()
     model = args['model']
-    command = EvaluationCommand(model)
-    command.execute()
+    EvaluationCommand(model).execute()
+
+
+def run_statistics():
+    DataAnalyserCommand().execute()
