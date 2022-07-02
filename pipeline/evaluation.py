@@ -1,40 +1,33 @@
-from .preprocess import *
-from .similarity import create_similarity
-from .tools import *
 from .utils import *
+import pandas as pd
+from sentence_transformers import SentenceTransformer
+from sentence_transformers.evaluation import BinaryClassificationEvaluator
+from sentence_transformers.readers import InputExample
 
 
 class EvaluationCommand:
 
-    def __init__(self, model):
-        self.logger = AppLogger()
+    def __init__(self):
+        self.progress = WorkProgress()
         self.path_utils = PathUtil()
-        self.dataset_utils = DatasetUtils()
-        self.statistic = Statistic()
-        self.preprocessor = Preprocessor()
-        self.threshold = ThresholdTester()
-        self.similarity = create_similarity(model)
 
     def execute(self):
-        self.logger.show('>>>>>>>>>>>> INICIO')
-        self.logger.start(steps=1)
-        query_dataset = self.__measure_similarity()
-        self.__show_results(query_dataset)
-        self.logger.finish()
-        self.logger.show('>>>>>>>>>>>> TÉRMINO')
+        self.progress.show('>>>>>>>>>>>> INICIO')
+        samples = self._prepare_samples(just_a_sample=True)
+        evaluator = BinaryClassificationEvaluator.from_input_examples(samples, show_progress_bar=True,
+                                                                      batch_size=8, name=f'benchmark_results')
+        model = SentenceTransformer('juridics/bertlaw-base-portuguese-triplet-sts')
+        evaluator(model, output_path='output')
+        self.progress.show('>>>>>>>>>>>> TÉRMINO')
 
-    def __measure_similarity(self):
-        self.logger.step(f'Processing')
-        filepath = self.path_utils.build_path('resources', 'test.csv')
-        query_dataset = self.dataset_utils.from_csv(filepath)
-        query_dataset = self.preprocessor.clear(query_dataset)
-        query_dataset = self.similarity.score(query_dataset)
-        return query_dataset
-
-    def __show_results(self, query_dataset):
-        best_case = self.threshold.test(query_dataset)
-        self.logger.show('')
-        self.logger.show(f'F1: {best_case["f1"]}')
-        self.logger.show(f'Precision: {best_case["precision"]}')
-        self.logger.show(f'Recall: {best_case["recall"]}')
-        self.logger.show(f'Threshold: {best_case["threshold"]}')
+    @staticmethod
+    def _prepare_samples(just_a_sample=False) -> list:
+        filepath = 'resources/full.csv'
+        dataset = pd.read_csv(filepath, sep='|', encoding='utf-8-sig')
+        if just_a_sample:
+            dataset = dataset.sample(frac=0.01)
+        result = []
+        for index, row in dataset.iterrows():
+            result.append(InputExample(texts=[row['ementa1'], row['ementa2']], label=int(row['similarity'])))
+            result.append(InputExample(texts=[row['ementa2'], row['ementa1']], label=int(row['similarity'])))
+        return result

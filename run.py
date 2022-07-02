@@ -1,5 +1,4 @@
-from pipeline import run_benchmark, run_statistics
+from pipeline import run_benchmark
 
 if __name__ == '__main__':
-    run_statistics()
     run_benchmark()
