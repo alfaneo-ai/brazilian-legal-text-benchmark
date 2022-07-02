@@ -6,7 +6,7 @@ venv
 .idea
 # C extensions
 *.so
-
+output
 # Distribution / packaging
 .Python
 build/
