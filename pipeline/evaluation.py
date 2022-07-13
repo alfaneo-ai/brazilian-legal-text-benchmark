@@ -16,7 +16,7 @@ class EvaluationCommand:
     def __init__(self):
         self.progress = WorkProgress()
         self.path_utils = PathUtil()
-        self.datasets_names = ['PJERJ', 'TJMS']
+        self.datasets_names = ['PJERJ', 'TJMS', 'STJ']
         self.models_names = {
             'bert-base-multilingual-cased': {'lower': False, 'group': 1, 'id': 1},
             'neuralmind/bert-base-portuguese-cased': {'lower': False, 'group': 1, 'id': 2},
