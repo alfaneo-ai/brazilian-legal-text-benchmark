@@ -21,12 +21,12 @@ class EvaluationCommand:
             'bert-base-multilingual-cased': {'lower': False, 'group': 1, 'id': 1},
             'neuralmind/bert-base-portuguese-cased': {'lower': False, 'group': 1, 'id': 2},
             'juridics/bertimbaulaw-base-portuguese-cased': {'lower': False, 'group': 1, 'id': 3},
-            'juridics/bertlaw-base-portuguese-uncased': {'lower': True, 'group': 1, 'id': 4},
+            'juridics/jurisbert-base-portuguese-uncased': {'lower': True, 'group': 1, 'id': 4},
 
-            'juridics/bert-base-multilingual-sts-scale': {'lower': False, 'group': 2, 'id': 5},
-            'juridics/bertimbau-base-portuguese-sts-scale': {'lower': False, 'group': 2, 'id': 6},
-            'juridics/bertimbaulaw-base-portuguese-sts-scale': {'lower': False, 'group': 2, 'id': 7},
-            'juridics/bertlaw-base-portuguese-sts-scale': {'lower': True, 'group': 2, 'id': 8}
+            'juridics/bert-base-multilingual-sts': {'lower': False, 'group': 2, 'id': 5},
+            'juridics/bertimbau-base-portuguese-sts': {'lower': False, 'group': 2, 'id': 6},
+            'juridics/bertimbaulaw-base-portuguese-sts': {'lower': False, 'group': 2, 'id': 7},
+            'juridics/jurisbert-base-portuguese-sts': {'lower': True, 'group': 2, 'id': 8}
         }
 
     def execute(self):
